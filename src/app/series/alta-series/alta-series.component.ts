@@ -26,6 +26,9 @@ export class AltaSeriesComponent implements OnInit {
   }
 
   onCrearSerie() {
-    console.log(this.serie);
+    this.seriesService.guardarSerie(this.serie).subscribe(
+      (response) => console.log(response),
+      (error) => console.log(error)
+    );
   }
 }
