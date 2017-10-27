@@ -4,10 +4,14 @@ import { FormsModule } from '@angular/forms';
 import { SeriesService } from './series.service';
 import { AltaSeriesComponent } from './alta-series/alta-series.component';
 import { HttpModule } from '@angular/http';
+import { ListadoSeriesComponent } from './listado-series/listado-series.component';
+import { ItemSerieComponent } from './item-serie/item-serie.component';
 
 @NgModule({
   declarations: [
-    AltaSeriesComponent
+    AltaSeriesComponent,
+    ListadoSeriesComponent,
+    ItemSerieComponent
   ],
   imports: [
     CommonModule,
@@ -18,7 +22,8 @@ import { HttpModule } from '@angular/http';
     SeriesService
   ],
   exports: [
-    AltaSeriesComponent
+    AltaSeriesComponent,
+    ListadoSeriesComponent
   ]
 })
 export class SeriesModule { }

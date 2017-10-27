@@ -11,4 +11,12 @@ export class SeriesService {
   guardarSerie(serie: Serie) {
     return this.http.post('http://localhost:3000/series', serie);
   }
+
+  recuperarSeries() {
+    return this.http.get('http://localhost:3000/series');
+  }
+
+  borrarSerie(serie) {
+    return this.http.delete('http://localhost:3000/series/' + serie.id);
+  }
 }
