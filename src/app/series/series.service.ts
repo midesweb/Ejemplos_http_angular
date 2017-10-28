@@ -1,10 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+
 
 import { Serie } from './serie.model';
 
 @Injectable()
 export class SeriesService {
+
+  private clientes$: Subject<Serie[]> = new Subject<Serie[]>();
 
   constructor(private http: Http) { }
 
@@ -13,7 +19,9 @@ export class SeriesService {
   }
 
   recuperarSeries() {
-    return this.http.get('http://localhost:3000/series');
+    this.http.get('http://localhost:3000/series')
+      .map( (response) => response.json() )
+      .subscribe( (response) => this.clientes$.next(response) );
   }
 
   borrarSerie(serie) {
@@ -26,5 +34,9 @@ export class SeriesService {
       temporadas: 1,
       emision: 2000
     };
+  }
+
+  obtenerSeries$(): Observable<Serie[]> {
+    return this.clientes$.asObservable();
   }
 }

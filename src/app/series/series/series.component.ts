@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
 import { SeriesService } from './../series.service';
 import { Serie } from './../serie.model';
@@ -11,13 +12,14 @@ import { Serie } from './../serie.model';
 export class SeriesComponent implements OnInit {
 
   nuevaSerie: Serie;
-  series: Serie[];
+  series$: Observable<Serie[]>;
 
   constructor(private seriesService: SeriesService) { }
 
   ngOnInit() {
     this.recuperarSeries();
     this.nuevaSerie = this.seriesService.nuevoObjetoSerie();
+    this.series$ = this.seriesService.obtenerSeries$();
   }
 
   onBorrarSerie(serie: Serie) {
@@ -39,8 +41,7 @@ export class SeriesComponent implements OnInit {
   }
 
   recuperarSeries() {
-    this.seriesService.recuperarSeries().subscribe(
-      (response) => this.series = response.json()
-    );
+    this.seriesService.recuperarSeries();
   }
+
 }
