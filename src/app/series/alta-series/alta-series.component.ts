@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { SeriesService } from './../series.service';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Serie } from './../serie.model';
 
 @Component({
@@ -9,26 +8,19 @@ import { Serie } from './../serie.model';
 })
 export class AltaSeriesComponent implements OnInit {
 
+  @Input()
   serie: Serie;
 
-  constructor(private seriesService: SeriesService) { }
+  @Output()
+  crearSerie = new EventEmitter<Serie>();
+
+  constructor() { }
 
   ngOnInit() {
-    this.serie = this.serieNueva();
-  }
-
-  serieNueva(): Serie {
-    return {
-      nombre: '',
-      temporadas: 1,
-      emision: 2000
-    };
   }
 
   onCrearSerie() {
-    this.seriesService.guardarSerie(this.serie).subscribe(
-      (response) => console.log(response),
-      (error) => console.log(error)
-    );
+    this.crearSerie.emit(this.serie);
   }
+
 }

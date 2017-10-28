@@ -19,4 +19,12 @@ export class SeriesService {
   borrarSerie(serie) {
     return this.http.delete('http://localhost:3000/series/' + serie.id);
   }
+
+  nuevoObjetoSerie(): Serie {
+    return {
+      nombre: '',
+      temporadas: 1,
+      emision: 2000
+    };
+  }
 }
