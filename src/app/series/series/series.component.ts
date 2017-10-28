@@ -16,15 +16,13 @@ export class SeriesComponent implements OnInit {
   constructor(private seriesService: SeriesService) { }
 
   ngOnInit() {
-    this.seriesService.recuperarSeries().subscribe(
-      (response) => this.series = response.json()
-    );
+    this.recuperarSeries();
     this.nuevaSerie = this.seriesService.nuevoObjetoSerie();
   }
 
   onBorrarSerie(serie: Serie) {
     this.seriesService.borrarSerie(serie).subscribe(
-      (response) => console.log(response),
+      (response) => this.recuperarSeries(),
       (error) => console.log(error)
     );
   }
@@ -34,9 +32,15 @@ export class SeriesComponent implements OnInit {
       (response) => {
         console.log(response);
         this.nuevaSerie = this.seriesService.nuevoObjetoSerie();
+        this.recuperarSeries();
       },
       (error) => console.log(error)
     );
   }
 
+  recuperarSeries() {
+    this.seriesService.recuperarSeries().subscribe(
+      (response) => this.series = response.json()
+    );
+  }
 }
